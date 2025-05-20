@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+:root {
+  /* Light theme colors - Museum theme */
+  --primary: 139, 69, 19;  /* Saddle Brown - Cultural, elegant */
+  --primary-dark: 101, 67, 33;  /* Darker brown */
+  --secondary: 205, 133, 63;  /* Peru - Warm accent */
+  --background: 252, 252, 250;  /* Off-white - Museum wall */
+  --foreground: 51, 51, 51;  /* Dark gray - Text */
+  --muted: 156, 163, 175;  /* Gray - Subtle elements */
+  --accent: 210, 180, 140;  /* Tan - Accent */
+  --success: 76, 175, 80;  /* Green - Success states */
+  --warning: 255, 152, 0;  /* Orange - Warnings */
+  --error: 244, 67, 54;  /* Red - Errors */
+  --border: 229, 231, 235;  /* Light gray - Borders */
+  --card: 255, 255, 255;  /* White - Cards */
+  --gold: 212, 175, 55;  /* Gold - Premium features */
+}
+
+[data-theme='dark'] {
+  --primary: 210, 180, 140;  /* Tan - Cultural, elegant */
+  --primary-dark: 139, 69, 19;  /* Saddle Brown - Darker shade */
+  --secondary: 205, 133, 63;  /* Peru - Warm accent */
+  --background: 33, 33, 33;  /* Dark gray - Museum wall */
+  --foreground: 252, 252, 250;  /* Off-white - Text */
+  --muted: 107, 114, 128;  /* Gray - Subtle elements */
+  --accent: 139, 69, 19;  /* Saddle Brown - Accent */
+  --success: 76, 175, 80;  /* Green - Success states */
+  --warning: 255, 152, 0;  /* Orange - Warnings */
+  --error: 244, 67, 54;  /* Red - Errors */
+  --border: 55, 65, 81;  /* Dark gray - Borders */
+  --card: 42, 42, 42;  /* Darker gray - Cards */
+  --gold: 212, 175, 55;  /* Gold - Premium features */
+}
+
+body {
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--muted));
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--accent));
+}
+
+/* Enhanced animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Museum-specific component styles */
+.card {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  background: rgb(var(--primary));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.button:hover {
+  background: rgb(var(--primary-dark));
+  transform: translateY(-1px);
+}
+
+.button-premium {
+  background: linear-gradient(135deg, rgb(var(--gold)), rgb(var(--secondary)));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.input:focus {
+  border-color: rgb(var(--primary));
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.1);
+}
+
+/* Message styles */
+.message {
+  animation: slideUp 0.3s ease;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  max-width: 85%;
+}
+
+.message-user {
+  background: rgb(var(--primary));
+  color: white;
+  margin-left: auto;
+}
+
+.message-bot {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+}
+
+/* QR Code styles */
+.qr-code {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Tour guide styles */
+.tour-guide-card {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.tour-guide-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.guide-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Language selector */
+.language-selector {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgb(var(--card));
+  border-radius: 8px;
+  border: 1px solid rgb(var(--border));
+}
+
+.language-option {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-option.active {
+  background: rgb(var(--primary));
+  color: white;
+}
+
+/* Feedback form */
+.feedback-form {
+  background: rgb(var(--card));
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgb(var(--border));
+}
+
+.rating-stars {
+  display: flex;
+  gap: 0.5rem;
+  color: rgb(var(--gold));
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.5rem 1rem;
+  background: rgb(var(--card));
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: rgb(var(--primary));
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .message {
+    max-width: 90%;
+  }
+  
+  .card {
+    border-radius: 8px;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Utility classes */
+.glass-effect {
+  background: rgba(var(--card), 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--border), 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--secondary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Status indicators */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.status-online { background: rgb(var(--success)); }
+.status-offline { background: rgb(var(--muted)); }
+.status-error { background: rgb(var(--error)); }
+
+/* Museum-specific utility classes */
+.exhibit-card {
+  background: rgb(var(--card));
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.exhibit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.exhibit-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.exhibit-info {
+  padding: 1rem;
+}
+
+.ticket-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid rgb(var(--border));
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ticket-type:hover {
+  border-color: rgb(var(--primary));
+  background: rgba(var(--primary), 0.05);
+}
+
+.ticket-type.selected {
+  border-color: rgb(var(--primary));
+  background: rgba(var(--primary), 0.1);
+}
