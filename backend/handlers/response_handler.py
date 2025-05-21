@@ -4,55 +4,75 @@ from helpers.storage_helper import get_or_create_vectorstore
 from constance.prompts import SYSTEM_PROMPT, HUMAN_PROMPT
 from langchain.chains import LLMChain
 from typing import Generator, Union
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-def get_response(user_input: str, session_id: str, stream: bool = False, messages: list = False) -> Union[str, Generator[str, None, None]]:
+api_key = os.getenv("GROQ_API_KEY")
+
+def get_response(
+    user_input: str,
+    session_id: str,
+    stream: bool = False,
+    messages: list = None
+) -> Union[str, Generator[str, None, None]]:
     """
-    Generates a response using the LLM model with vectorstore-enhanced context.
+    Generates a response using the GROQ LLM model with vectorstore-enhanced context.
 
     Args:
-        user_input (str): The input from the user.
-        session_id (str): The session ID.
-        stream (bool): Whether to stream the response or return it directly.
+        user_input (str): The user's message or question.
+        session_id (str): The unique ID for the user's session.
+        stream (bool): If True, yields streaming response chunks.
+        messages (list): Optional chat history if passed manually.
 
     Returns:
-        Union[str, Generator[str, None, None]]: The generated response as a string or a generator for streaming.
+        Union[str, Generator[str, None, None]]: A response string or a generator for streamed output.
     """
+
+    # Load vectorstore and retrieve top-k relevant context
     vectorstore = get_or_create_vectorstore()
     results = vectorstore.similarity_search(user_input, k=2)
     context = "\n".join([doc.page_content for doc in results])
-    llm = get_llm_model()
-    # llm = get_llm_model(llm_model="groq", model_name="llama-3.3-70b-versatile", temperature=0.5, api_key="oB")
+
+    # Get the Groq LLM model
+    llm = get_llm_model(
+        model_name="llama3-8b-8192", 
+        temperature=0.5, 
+        api_key=api_key
+    )
+
+    # Initialize the ChatHelper with system and human prompts
     chat_helper = ChatHelper(system_prompt=SYSTEM_PROMPT, human_prompt=HUMAN_PROMPT)
+
+    # Compose the full chain
     chain = chat_helper.prompt | llm
-    
-    if messages:
-        payload = {
-            "query": user_input,
-            "context": context,
-            "chat_history": messages
-        }
-    else:
-        payload = {
-            "query": user_input,
-            "context": context,
-            "chat_history": chat_helper.get_memory_list(session_id)
-        }
-    print(payload)
-    response = ""
+
+    # Prepare payload for the chain
+    payload = {
+        "query": user_input,
+        "context": context,
+        "chat_history": messages if messages else chat_helper.get_memory_list(session_id)
+    }
+
+    print("Payload:", payload)
+
+    # Stream or generate full response
     if stream:
-        obj =  chain.stream(payload)
-        for chunk in obj:
-            response = response + chunk.content
+        response = ""
+        for chunk in chain.stream(payload):
+            response += chunk.content
             yield chunk.content
-        print("stream end")
+        print("Stream ended")
     else:
         response = chain.invoke(payload)
-    
-    if not messages:    
+
+    # Store the chat in memory if not using external messages
+    if not messages:
         chat_helper.add_user_message(session_id, user_input)
         chat_helper.add_assistant_message(session_id, response)
-        print(chat_helper.get_memory_list(session_id))
-    
+        print("Updated Memory:", chat_helper.get_memory_list(session_id))
+
+    # Return final response
     if not stream:
         return response.get("output_text", "") if isinstance(response, dict) else str(response)
