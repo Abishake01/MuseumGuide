@@ -18,10 +18,18 @@ export interface Message {
   };
 }
 
+
 export interface Conversation {
+  name: string;
+  messages: (Message | {
+        id: string;
+        content: string;
+        role: "user";
+        timestamp: Date;
+    })[];
   id: string;
   title: string;
-  messages: Message[];
   createdAt: Date;
   updatedAt: Date;
+  sessionId?: string;
 } 
