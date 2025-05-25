@@ -1,0 +1,18 @@
+{
+  "visitor_name": "Test Visitor",
+  "visit_date": "2025-05-25",
+  "responses": {
+    "How would you rate your overall museum experience?": {
+      "rating": 5
+    },
+    "What aspects of your visit could be improved?": {
+      "text": "The museum was great! I would like to see more interactive exhibits."
+    }
+  },
+  "timestamp": "2025-05-25T11:49:43.451772",
+  "overall_sentiment": {
+    "polarity": 0,
+    "subjectivity": 0,
+    "sentiment": "neutral"
+  }
+}

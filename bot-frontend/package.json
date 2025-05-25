@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
     "framer-motion": "^12.5.0",
     "next": "15.2.2",
     "qrcode.react": "^4.2.0",

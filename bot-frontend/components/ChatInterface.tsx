@@ -19,7 +19,6 @@ import {
   FaChevronRight
 } from 'react-icons/fa';
 import { BsTicketPerforated, BsExclamationTriangle } from 'react-icons/bs';
-import QRCode from 'qrcode.react';
 import MessageComponent from './Message';
 import { sendMessage, checkHealth } from '@/services/api';
 import { Message, Conversation } from '@/types/chat';
