@@ -151,6 +151,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
       message.type === 'guide' ||
       message.type === 'exhibition' ||
       lowerContent.includes('ticket price') ||
+      lowerContent.includes('book ticket') ||
       lowerContent.includes('how much are tickets') 
     );
 
