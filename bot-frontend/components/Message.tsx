@@ -7,15 +7,16 @@ interface MessageProps {
   message: {
     role: 'user' | 'assistant';
     content: string;
-    type?: 'booking' | 'info' | 'event' | 'ticket' | 'guide' | 'benefits' | 'exhibition';
+    type?: 'booking' | 'info' | 'event' | 'ticket' | 'guide' | 'benefits' | 'exhibition' | undefined;
     bookingDetails?: {
       tickets: number;
       date: string;
       time: string;
       exhibition: string;
-    };
+    }| undefined;
   };
 }
+
 
 const Message: React.FC<MessageProps> = ({ message }) => {
   const isUser = message.role === 'user';

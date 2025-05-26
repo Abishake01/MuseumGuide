@@ -36,6 +36,7 @@ interface ChatInterfaceProps {
   onSubmitFeedback?: (feedback: { rating: number; comment: string }) => void;
 }
 
+
 export default function ChatInterface({ 
   conversation, 
   setConversations,
@@ -483,7 +484,7 @@ export default function ChatInterface({
             <div className="w-24 h-24 bg-gradient-to-br from-blue-800 to-indigo-900 rounded-full flex items-center justify-center text-white text-4xl mb-6 shadow-lg">
               <FaLandmark className="w-12 h-12" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-3 bg-gradient-to-r from-blue-800 to-indigo-900 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold text-gray-800 mb-3 bg-gradient-to-r from-blue-800 to-indigo-900 bg-clip-text ">
               Museum Virtual Guide
             </h2>
             <p className="text-gray-600 max-w-md mb-8">
